@@ -17,7 +17,7 @@ class Document extends Model
     protected $fillable = [
         'data_de_vencimento',
         'numero_do_documento',
-        'valor'
+        'valor',
     ];
 
     /**
@@ -30,5 +30,5 @@ class Document extends Model
         return [
             'data_de_vencimento' => 'date:Y-m-d',
         ];
-    } 
+    }
 }

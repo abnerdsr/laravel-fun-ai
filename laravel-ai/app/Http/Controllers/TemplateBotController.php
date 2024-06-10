@@ -6,7 +6,6 @@ use App\Services\Chat;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Markdown;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class TemplateBotController extends Controller
 {
@@ -18,7 +17,7 @@ class TemplateBotController extends Controller
             'chat.chatbot',
         ]);
 
-        $content = Markdown::parse(session('chat.bot')?->messages()->last()['content'] ?? "");
+        $content = Markdown::parse(session('chat.bot')?->messages()->last()['content'] ?? '');
 
         return view('bot', compact('content'));
     }
@@ -33,8 +32,8 @@ class TemplateBotController extends Controller
             ->system($promptTemplate)
             ->json()
             ->send(
-                "Pergunta: Lembre que os ids não númericos devem ser uuids. " .
-                $request->input('message') .
+                'Pergunta: Lembre que os ids não númericos devem ser uuids. '.
+                $request->input('message').
                 "\n Resposta:"
             );
 

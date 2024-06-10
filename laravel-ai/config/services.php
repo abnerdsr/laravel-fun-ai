@@ -36,7 +36,7 @@ return [
     ],
 
     'openai' => [
-        'api_url' => env('OPENAI_URL'),
         'api_key' => env('OPENAI_API_KEY'),
-    ]
+        'api_org' => env('OPENAI_ORGANIZATION'),
+    ],
 ];

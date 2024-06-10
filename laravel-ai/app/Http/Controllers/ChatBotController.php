@@ -34,7 +34,7 @@ class ChatBotController extends Controller
         $chat = session('chat.chatbot') ?? new Chat;
 
         $chat
-            ->system(<<<MESSAGE
+            ->system(<<<'MESSAGE'
                 Você é um funcionário da Acessórias (https://acessorias.com/) que gosta muito da empresa, 
                 Você responde apenas dados referente ao site ou a empresa,
                 Caso alguém lhe pergunte ou informe algo fora do contexto Acessórias responda, 

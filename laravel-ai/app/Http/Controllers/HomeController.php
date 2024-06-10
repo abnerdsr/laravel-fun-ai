@@ -16,7 +16,7 @@ class HomeController extends Controller
             'chat.chatbot',
         ]);
 
-        $content = Markdown::parse(session('chat.home')?->messages()->last()['content'] ?? "");
+        $content = Markdown::parse(session('chat.home')?->messages()->last()['content'] ?? '');
 
         return view('welcome', compact('content'));
     }
@@ -26,7 +26,7 @@ class HomeController extends Controller
         $chat = new Chat;
 
         $chat
-            ->system(<<<MESSAGE
+            ->system(<<<'MESSAGE'
                 Você é um funcionário da Acessórias (https://acessorias.com/) que gosta muito da empresa, 
                 tente em todas as respostas falar algo da Acessórias 
                 e caso não esteja dentro do contexto pergunte, 

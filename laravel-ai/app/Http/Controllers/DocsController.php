@@ -18,8 +18,8 @@ class DocsController extends Controller
             'chat.chatbot',
         ]);
 
-        $content = Markdown::parse(session('chat.docs')?->messages()->last()['content'] ?? "");
-        
+        $content = Markdown::parse(session('chat.docs')?->messages()->last()['content'] ?? '');
+
         $documents = Document::all();
 
         return view('docs', compact('content', 'documents'));
@@ -35,7 +35,7 @@ class DocsController extends Controller
 
         $chat = (new Chat)
             ->system(
-                <<<MESSAGE
+                <<<'MESSAGE'
                 Você é um contador que analisa dados de documentos fiscais, 
                 esses documentos seguem o modelo descrito no site da Receita Federal 
                 link do site: (https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/formularios/modelos)

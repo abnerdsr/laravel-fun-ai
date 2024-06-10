@@ -6,6 +6,8 @@ Docker (https://docs.docker.com/desktop/)
 
 API Key da OpenAI (https://platform.openai.com/api-keys)
 
+Org Key da OpenAI (https://platform.openai.com/settings/organization/general)
+
 ## Configurando
 
 clone o arquivo .env
@@ -16,6 +18,7 @@ cp .env.example .env
 adicione sua api key na variavel OPENAI_API_KEY no arquivo .env
 ```sh
 OPENAI_API_KEY=minhakey
+OPENAI_ORGANIZATION=minhaorgkey
 ```
 
 suba os servidores
