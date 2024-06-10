@@ -1,0 +1,81 @@
+{
+    "events": [
+        {
+            "id": 1,
+            "order": 1,
+            "type": "welcome",
+            "actions": [
+                {
+                    "id": 1,
+                    "parent": null,
+                    "order": 1,
+                    "type": "message",
+                    "content": {
+                        "message": "Mensagem de boas vindas"
+                    }
+                },
+                {
+                    "id": 2,
+                    "parent": null,
+                    "order": 2,
+                    "type": "menu",
+                    "content": {
+                        "message": "Mensagem que mostra para o usuário selecionar uma opção",
+                        "invalid_message": "Mensagem que mostra quando o usuário seleciona uma opção inválida",
+                        "menus": [
+                            {
+                                "id": "bfae8847-5a08-4b95-9cf7-f6836a66ab2f",
+                                "parent": 2,
+                                "order": 1,
+                                "type": "menu",
+                                "content": {
+                                    "message": "Mensagem que mostra para o usuário selecionar uma opção",
+                                    "invalid_message": "Mensagem que mostra quando o usuário seleciona uma opção inválida",
+                                    "menus": [
+                                        {
+                                            "id": "58a9b74b-0d3b-4c91-a0da-4e6b0f3a9aac",
+                                            "parent": "bfae8847-5a08-4b95-9cf7-f6836a66ab2f",
+                                            "order": 1,
+                                            "type": "transfer_of_department",
+                                            "content": {
+                                                "message": "Mostra uma mensagem de transferencia ao executar a ação",
+                                                "department_id": 1
+                                            },
+                                            "triggerKey": "1",
+                                            "triggerValue": "Mostra o nome da opção a ser selecionada"
+                                        },
+                                        {
+                                            "id": "0ae9531e-8b1c-4b83-9220-fda309311907",
+                                            "parent": "bfae8847-5a08-4b95-9cf7-f6836a66ab2f",
+                                            "order": 2,
+                                            "type": "back",
+                                            "content": {
+                                                "message": "",
+                                                "action_back_id": 2
+                                            },
+                                            "triggerKey": "2",
+                                            "triggerValue": "Mostra o nome da opção a ser selecionada"
+                                        }
+                                    ]
+                                },
+                                "triggerKey": "1",
+                                "triggerValue": "Departamentos"
+                            },
+                            {
+                                "id": "0af43fd8-3d6f-4c84-b538-77860e7b4e2b",
+                                "parent": 2,
+                                "order": 2,
+                                "type": "exit",
+                                "content": {
+                                    "message": "Mensagem ao encerrar o atendimento."
+                                },
+                                "triggerKey": "2",
+                                "triggerValue": "Sair"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Document;
+use App\Services\Chat;
+use Illuminate\Http\Request;
+use Illuminate\Mail\Markdown;
+use Smalot\PdfParser\Parser;
+
+class DocsController extends Controller
+{
+    public function index(): mixed
+    {
+        $content = Markdown::parse(session('chat')?->messages()->last()['content'] ?? "");
+        
+        $documents = Document::all();
+
+        return view('docs', compact('content', 'documents'));
+    }
+
+    public function send(Request $request): mixed
+    {
+        $filePath = $request->file('pdf')->getPathName();
+
+        $parser = new Parser();
+        $pdf = $parser->parseFile($filePath);
+        $text = $pdf->getText();
+
+        $chat = (new Chat)
+            ->system(
+                <<<MESSAGE
+                Você é um contador que analisa dados de documentos fiscais, 
+                esses documentos seguem o modelo descrito no site da Receita Federal 
+                link do site: (https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/formularios/modelos)
+                Após analisar os dados do documento extraido forneça apenas um json como resposta contendo toda informação presente no documento
+                O json deve conter as seguintes informações: data de vencimento, numero do documento e valor
+                Sendo que a data de vencimento no json deve vir no formato seguindo o exemplo: 2024-06-10
+            MESSAGE
+            )
+            ->json();
+
+        $chat->send("Texto extraido do pdf: [ {$text} ]. \n\nforneça um json com as informações do conteúdo acima");
+
+        session()->put('chat', $chat);
+
+        try {
+            $documentData = json_decode(session('chat')?->messages()->last()['content'], true);
+            Document::create($documentData);
+        } catch (\Exception $e) {
+            // dd($e->)
+        }
+
+        return back();
+    }
+}

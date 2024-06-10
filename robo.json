@@ -1,0 +1,81 @@
+{
+    "events": [
+        {
+            "id": 1,
+            "order": 1,
+            "type": "welcome",
+            "actions": [
+                {
+                    "id": 1,
+                    "parent": null,
+                    "order": 1,
+                    "type": "message",
+                    "content": {
+                        "message": "Bem-vindo(a) $nome_do_contato !\nEu sou o seu assistente virtual dedicado para ajudar com todas as suas necessidades contábeis."
+                    }
+                },
+                {
+                    "id": 2,
+                    "parent": null,
+                    "order": 2,
+                    "type": "menu",
+                    "content": {
+                        "message": "Selecione uma das opções abaixo",
+                        "invalid_message": "Opção inválida!",
+                        "menus": [
+                            {
+                                "id": "bfae8847-5a08-4b95-9cf7-f6836a66ab2f",
+                                "parent": 2,
+                                "order": 1,
+                                "type": "menu",
+                                "content": {
+                                    "message": "Selecione um departamento",
+                                    "invalid_message": "Opção inválida!",
+                                    "menus": [
+                                        {
+                                            "id": "58a9b74b-0d3b-4c91-a0da-4e6b0f3a9aac",
+                                            "parent": "bfae8847-5a08-4b95-9cf7-f6836a66ab2f",
+                                            "order": 1,
+                                            "type": "transfer_of_department",
+                                            "content": {
+                                                "message": "Você foi transferido para o departamento *$nome_do_departamento*.\nAguarde um momento e será atendido.",
+                                                "department_id": 1
+                                            },
+                                            "triggerKey": "1",
+                                            "triggerValue": "Ir para o departamento 1"
+                                        },
+                                        {
+                                            "id": "0ae9531e-8b1c-4b83-9220-fda309311907",
+                                            "parent": "bfae8847-5a08-4b95-9cf7-f6836a66ab2f",
+                                            "order": 2,
+                                            "type": "back",
+                                            "content": {
+                                                "message": "",
+                                                "action_back_id": 2
+                                            },
+                                            "triggerKey": "2",
+                                            "triggerValue": "Voltar ao menu anterior"
+                                        }
+                                    ]
+                                },
+                                "triggerKey": "1",
+                                "triggerValue": "Departamentos"
+                            },
+                            {
+                                "id": "0af43fd8-3d6f-4c84-b538-77860e7b4e2b",
+                                "parent": 2,
+                                "order": 2,
+                                "type": "exit",
+                                "content": {
+                                    "message": "Obrigado, volte sempre!\n\nCaso queira iniciar um novo atendimento, basta enviar uma nova mensagem."
+                                },
+                                "triggerKey": "2",
+                                "triggerValue": "Sair"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
