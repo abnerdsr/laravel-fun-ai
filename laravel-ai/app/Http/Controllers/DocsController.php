@@ -12,7 +12,13 @@ class DocsController extends Controller
 {
     public function index(): mixed
     {
-        $content = Markdown::parse(session('chat')?->messages()->last()['content'] ?? "");
+        session()->forget([
+            'chat.home',
+            'chat.bot',
+            'chat.chatbot',
+        ]);
+
+        $content = Markdown::parse(session('chat.docs')?->messages()->last()['content'] ?? "");
         
         $documents = Document::all();
 
@@ -42,13 +48,13 @@ class DocsController extends Controller
 
         $chat->send("Texto extraido do pdf: [ {$text} ]. \n\nforneça um json com as informações do conteúdo acima");
 
-        session()->put('chat', $chat);
+        session()->put('chat.docs', $chat);
 
         try {
-            $documentData = json_decode(session('chat')?->messages()->last()['content'], true);
+            $documentData = json_decode(session('chat.docs')?->messages()->last()['content'], true);
             Document::create($documentData);
         } catch (\Exception $e) {
-            // dd($e->)
+            info($e->getMessage());
         }
 
         return back();

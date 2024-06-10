@@ -1,5 +1,5 @@
 <x-layout>
-    <h2 class="mb-4 text-white">FEW SHOT - DOCUMENT</h2>
+    <h2 class="mb-4 text-white">FEW SHOT - RECEBE DOCUMENTOS PDF E REGISTRA NO BANCO</h2>
     <div class="w-[600px]">
         <form id="sendForm" method="POST" enctype="multipart/form-data" action="{{ route('docs.send') }}">
             @csrf

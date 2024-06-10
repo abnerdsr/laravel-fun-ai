@@ -1,5 +1,5 @@
 <x-layout>
-    <h2 class="mb-4 text-white">ZERO SHOT</h2>
+    <h2 class="mb-4 text-white">ZERO SHOT COM CHAIN OF THOUGHTS - FISSURADO NA ACESSÓRIAS</h2>
     <div class="w-[600px]">
         <form id="sendForm" method="POST" action="{{ route('home.send') }}">
             @csrf

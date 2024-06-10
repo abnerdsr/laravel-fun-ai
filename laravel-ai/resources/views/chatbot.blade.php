@@ -1,5 +1,5 @@
 <x-layout>
-    <h2 class="mb-4 text-white">AGENTE - CHAT BOT</h2>
+    <h2 class="mb-4 text-white">AGENTE DE SUPORTE AO SITE ACESSÓRIAS - CHAT BOT</h2>
     <div class="w-[600px]">
         <form id="sendForm" method="POST" enctype="multipart/form-data" action="{{ route('chatbot.send') }}">
             @csrf
@@ -9,11 +9,29 @@
                 placeholder="{{ __('Pergunte a IA...') }}"
                 class="p-2 bg-gray-200 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
             >{{ old('message') }}</textarea>
-            <input type="submit" class="mt-4 text-white p-2 border border-gray-300 cursor-pointer rounded-lg" value="Enviar"/>
+            <div class="flex items-center justify-content w-full">
+                <div class="w-1/2">
+                <input type="submit" class="mt-4 text-white p-2 border border-gray-300 cursor-pointer rounded-lg" value="Enviar"/>
+                </div>
+                <div class="w-1/2 text-right">
+                <input type="button" class="mt-4 text-white p-2 border border-gray-300 cursor-pointer rounded-lg" value="Resetar" onclick="resetar()" />
+                </div>
+            </div>
+        </form>
+        
+
+        <form id="sendFormClear" method="POST" action="{{ route('chatbot.clear') }}">
+            @csrf
+            
         </form>
     </div>
 
     <script>
+        function resetar() {
+            const form = document.getElementById('sendFormClear');
+            form.submit();
+        }
+
         document.addEventListener('DOMContentLoaded', (event) => {
             const form = document.getElementById('sendForm');
             const textarea = document.getElementById('message');

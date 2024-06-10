@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Services\Chat;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Markdown;
 
 class TemplateBotController extends Controller
 {
     public function index(): mixed
     {
-        $content = Markdown::parse(session('chat')?->messages()->last()['content'] ?? "");
+        session()->forget([
+            'chat.home',
+            'chat.docs',
+            'chat.chatbot',
+        ]);
+
+        $content = Markdown::parse(session('chat.bot')?->messages()->last()['content'] ?? "");
 
         return view('bot', compact('content'));
     }
@@ -18,9 +25,10 @@ class TemplateBotController extends Controller
     {
         $chat = new Chat;
 
-        $chat->send($request->input('message'));
+        $chat
+            ->send($request->input('message'));
 
-        session()->put('chat', $chat);
+        session()->put('chat.bot', $chat);
 
         return back();
     }

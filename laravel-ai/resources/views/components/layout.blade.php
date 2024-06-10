@@ -16,7 +16,6 @@
         |<a class="p-2" href="{{ route('docs.index') }}">Docs</a>
         |<a class="p-2" href="{{ route('bot.index') }}">Template de Robos</a>
         |<a class="p-2" href="{{ route('chatbot.index') }}">Chat Bot</a>
-        |<a class="p-2" href="{{ route('home.clear') }}">Limpar Sessão</a>
 
     </div>
     <div class="grid place-items-center p-6 break-words">
