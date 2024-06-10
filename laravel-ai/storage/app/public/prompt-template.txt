@@ -1,0 +1,362 @@
+Dados e regras: 
+
+Geral:
+
+- Os ids não numéricos devem ser gerados como uuid
+
+
+Eventos: 
+
+- um evento pode ser de Recepção, Atendimento ou Encerramento 
+
+- um evento pode conter uma ou mais ações 
+
+- somente o evento de Recepção pode conter uma ação de Menu 
+
+
+
+Ações: 
+
+- uma ação pode ser Enviar uma mensagem, Mostrar um menu, Voltar ao menu anterior, Transferir para um departamento, Avaliar e Encerrar
+
+- a ação de Menu precisa ter outras ações dentro dela que serão as opções do usuário, inclusive outra ação de menu que seria como um submenu
+
+- a ação Voltar ao menu anterior só pode constar dentro de uma ação de Menu
+
+
+
+Estrutura básica do Json
+
+
+
+{
+
+    "events": [
+
+        {
+
+            "id": 1,
+
+            "order": 1,
+
+            "type": "welcome",
+
+            "actions": [
+
+                {
+
+                    "id": 1,
+
+                    "parent": null,
+
+                    "order": 1,
+
+                    "type": "message",
+
+                    "content": {
+
+                        "message": "Mensagem de boas vindas"
+
+                    }
+
+                },
+
+                {
+
+                    "id": 2,
+
+                    "parent": null,
+
+                    "order": 2,
+
+                    "type": "menu",
+
+                    "content": {
+
+                        "message": "Mensagem que mostra para o usuário selecionar uma opção",
+
+                        "invalid_message": "Mensagem que mostra quando o usuário seleciona uma opção inválida",
+
+                        "menus": [
+
+                            {
+
+                                "id": "bfae8847-5a08-4b95-9cf7-f6836a66ab2f",
+
+                                "parent": 2,
+
+                                "order": 1,
+
+                                "type": "menu",
+
+                                "content": {
+
+                                    "message": "Mensagem que mostra para o usuário selecionar uma opção",
+
+                                    "invalid_message": "Mensagem que mostra quando o usuário seleciona uma opção inválida",
+
+                                    "menus": [
+
+                                        {
+
+                                            "id": "58a9b74b-0d3b-4c91-a0da-4e6b0f3a9aac",
+
+                                            "parent": "bfae8847-5a08-4b95-9cf7-f6836a66ab2f",
+
+                                            "order": 1,
+
+                                            "type": "transfer_of_department",
+
+                                            "content": {
+
+                                                "message": "Mostra uma mensagem de transferencia ao executar a ação",
+
+                                                "department_id": 1
+
+                                            },
+
+                                            "triggerKey": "1",
+
+                                            "triggerValue": "Mostra o nome da opção a ser selecionada"
+
+                                        },
+
+                                        {
+
+                                            "id": "0ae9531e-8b1c-4b83-9220-fda309311907",
+
+                                            "parent": "bfae8847-5a08-4b95-9cf7-f6836a66ab2f",
+
+                                            "order": 2,
+
+                                            "type": "back",
+
+                                            "content": {
+
+                                                "message": "",
+
+                                                "action_back_id": 2
+
+                                            },
+
+                                            "triggerKey": "2",
+
+                                            "triggerValue": "Mostra o nome da opção a ser selecionada"
+
+                                        }
+
+                                    ]
+
+                                },
+
+                                "triggerKey": "1",
+
+                                "triggerValue": "Departamentos"
+
+                            },
+
+                            {
+
+                                "id": "0af43fd8-3d6f-4c84-b538-77860e7b4e2b",
+
+                                "parent": 2,
+
+                                "order": 2,
+
+                                "type": "exit",
+
+                                "content": {
+
+                                    "message": "Mensagem ao encerrar o atendimento."
+
+                                },
+
+                                "triggerKey": "2",
+
+                                "triggerValue": "Sair"
+
+                            }
+
+                        ]
+
+                    }
+
+                }
+
+            ]
+
+        }
+
+    ]
+
+}
+
+
+
+Pergunta: Monte um json que representa um Robo que terá um evento de Recepção com uma mensagem de Bem vindo e um Menu que conterá apenas um submenu com uma transferencia para um departamento e uma opção de voltar ao menu anterior, também terá a opção de encerrar o atendimento.
+
+
+
+Resposta:
+
+{
+
+    "events": [
+
+        {
+
+            "id": 1,
+
+            "order": 1,
+
+            "type": "welcome",
+
+            "actions": [
+
+                {
+
+                    "id": 1,
+
+                    "parent": null,
+
+                    "order": 1,
+
+                    "type": "message",
+
+                    "content": {
+
+                        "message": "Bem-vindo(a) $nome_do_contato !\nEu sou o seu assistente virtual dedicado para ajudar com todas as suas necessidades contábeis."
+
+                    }
+
+                },
+
+                {
+
+                    "id": 2,
+
+                    "parent": null,
+
+                    "order": 2,
+
+                    "type": "menu",
+
+                    "content": {
+
+                        "message": "Selecione uma das opções abaixo",
+
+                        "invalid_message": "Opção inválida!",
+
+                        "menus": [
+
+                            {
+
+                                "id": "bfae8847-5a08-4b95-9cf7-f6836a66ab2f",
+
+                                "parent": 2,
+
+                                "order": 1,
+
+                                "type": "menu",
+
+                                "content": {
+
+                                    "message": "Selecione um departamento",
+
+                                    "invalid_message": "Opção inválida!",
+
+                                    "menus": [
+
+                                        {
+
+                                            "id": "58a9b74b-0d3b-4c91-a0da-4e6b0f3a9aac",
+
+                                            "parent": "bfae8847-5a08-4b95-9cf7-f6836a66ab2f",
+
+                                            "order": 1,
+
+                                            "type": "transfer_of_department",
+
+                                            "content": {
+
+                                                "message": "Você foi transferido para o departamento *$nome_do_departamento*.\nAguarde um momento e será atendido.",
+
+                                                "department_id": 1
+
+                                            },
+
+                                            "triggerKey": "1",
+
+                                            "triggerValue": "Ir para o departamento 1"
+
+                                        },
+
+                                        {
+
+                                            "id": "0ae9531e-8b1c-4b83-9220-fda309311907",
+
+                                            "parent": "bfae8847-5a08-4b95-9cf7-f6836a66ab2f",
+
+                                            "order": 2,
+
+                                            "type": "back",
+
+                                            "content": {
+
+                                                "message": "",
+
+                                                "action_back_id": 2
+
+                                            },
+
+                                            "triggerKey": "2",
+
+                                            "triggerValue": "Voltar ao menu anterior"
+
+                                        }
+
+                                    ]
+
+                                },
+
+                                "triggerKey": "1",
+
+                                "triggerValue": "Departamentos"
+
+                            },
+
+                            {
+
+                                "id": "0af43fd8-3d6f-4c84-b538-77860e7b4e2b",
+
+                                "parent": 2,
+
+                                "order": 2,
+
+                                "type": "exit",
+
+                                "content": {
+
+                                    "message": "Obrigado, volte sempre!\n\nCaso queira iniciar um novo atendimento, basta enviar uma nova mensagem."
+
+                                },
+
+                                "triggerKey": "2",
+
+                                "triggerValue": "Sair"
+
+                            }
+
+                        ]
+
+                    }
+
+                }
+
+            ]
+
+        }
+
+    ]
+
+}

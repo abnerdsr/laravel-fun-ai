@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Services\Chat;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Markdown;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class TemplateBotController extends Controller
 {
@@ -25,8 +27,16 @@ class TemplateBotController extends Controller
     {
         $chat = new Chat;
 
+        $promptTemplate = File::get(storage_path('app/public/prompt-template.txt'));
+
         $chat
-            ->send($request->input('message'));
+            ->system($promptTemplate)
+            ->json()
+            ->send(
+                "Pergunta: Lembre que os ids não númericos devem ser uuids. " .
+                $request->input('message') .
+                "\n Resposta:"
+            );
 
         session()->put('chat.bot', $chat);
 
