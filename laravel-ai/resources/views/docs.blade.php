@@ -42,7 +42,7 @@
                 {{ $document->valor }}
             </div>
             <div>
-                {{ $document->data_de_vencimento->format('d/m/Y') }}
+                {{ $document->data_de_vencimento }}
             </div>
 
             @endforeach

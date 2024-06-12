@@ -33,12 +33,13 @@ rode as migrations
 
 Acesse o projeto
 ```
-http://localhost
+http://localhost:8000
 ```
 
 ## Observações
 
 Caso não consiga acessar o projeto verifique os seguintes pontos
 
-1. A porta 80 do seu computador precisa estar liberada
+1. A porta 8000 do seu computador precisa estar liberada
 2. O Seu navegador pode redirecionar automatico para https, então digite no próprio navegador chrome://net-internals/#hsts, adicione localhost em Domain: na sessão Delete domain security policies, depois clique no botão "delete" e tente novamente
+3. Se for utilizar o llama3 instale ele e rode o projeto localmente sem o docker ou instale ele dentro da imagem da aplicação (https://ollama.com/library/llama3)

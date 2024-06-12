@@ -19,16 +19,4 @@ class Document extends Model
         'numero_do_documento',
         'valor',
     ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'data_de_vencimento' => 'date:Y-m-d',
-        ];
-    }
 }

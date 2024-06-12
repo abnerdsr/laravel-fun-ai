@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Services\Chat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class ChatBotController extends Controller
 {
@@ -33,9 +35,24 @@ class ChatBotController extends Controller
         /** @var Chat */
         $chat = session('chat.chatbot') ?? new Chat;
 
+        if ($chat->model === 'llama3') {
+            $acessorias = Cache::get('acessorias');
+            if (is_null($acessorias)) {
+                $acessorias = Http::get('https://acessorias.com/site')->body();
+                $acessorias .= Http::get('https://acessorias.com/site/sobre-nos/')->body();
+                $acessorias .= Http::get('https://acessorias.com/site/funcionalidades/')->body();
+
+                Cache::put('acessorias', $acessorias);
+            }
+        } else {
+            $acessorias = '(https://acessorias.com/site/ | https://acessorias.com/site/sobre-nos/ | https://acessorias.com/site/funcionalidades/ | )';
+        }
+
+        $acessorias .= " Contato: Avenida Amazonas, 91, Belo Horizonte (MG), (31) 3526-2555";
+
         $chat
-            ->system(<<<'MESSAGE'
-                Você é um funcionário da Acessórias (https://acessorias.com/) que gosta muito da empresa, 
+            ->system(<<<MESSAGE
+                Você é um funcionário da Acessórias ({$acessorias}) que gosta muito da empresa, 
                 Você responde apenas dados referente ao site ou a empresa,
                 Caso alguém lhe pergunte ou informe algo fora do contexto Acessórias responda, 
                 Perdão mas só posso lhe responder sobre a Acessórias

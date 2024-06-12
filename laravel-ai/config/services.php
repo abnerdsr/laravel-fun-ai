@@ -39,4 +39,8 @@ return [
         'api_key' => env('OPENAI_API_KEY'),
         'api_org' => env('OPENAI_ORGANIZATION'),
     ],
+
+    'ai' => [
+        'model' =>  env('IA_MODEL', 'gpt-4o'),
+    ],
 ];

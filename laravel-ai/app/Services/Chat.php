@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Http;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class Chat
@@ -17,8 +18,9 @@ class Chat
      */
     public function __construct(
         private Collection $messages = new Collection(),
-        private string $model = 'gpt-4o'
+        public ?string $model = null, 
     ) {
+        $this->model ??= config('services.ai.model');
         $this->responseData['model'] = $this->model;
     }
 
@@ -45,9 +47,13 @@ class Chat
      */
     public function json(): static
     {
-        $this->responseData['response_format'] = [
-            'type' => 'json_object',
-        ];
+        if ($this->model === 'llama3') {
+            $this->responseData['format'] = 'json';
+        } else {
+            $this->responseData['response_format'] = [
+                'type' => 'json_object',
+            ];
+        }
 
         return $this;
     }
@@ -64,14 +70,23 @@ class Chat
 
         $this->responseData['messages'] = $this->messages->toArray();
 
-        $response = OpenAI::chat()
-            ->create($this->responseData);
+        if ($this->model === 'llama3') {
+            $this->responseData["stream"] = false;
 
-        if (empty($response->choices[0]->message->content)) {
-            dd('Conteúdo retornou com erro', $response);
+            $response = Http::post('http://localhost:11434/api/chat', $this->responseData)
+                ->json();
+
+            $content = $response['message']['content'];
+        } else {
+            $response = OpenAI::chat()
+                ->create($this->responseData);
+
+            if (empty($response->choices[0]->message->content)) {
+                dd('Conteúdo retornou com erro', $response);
+            }
+
+            $content = $response->choices[0]->message->content;
         }
-
-        $content = $response->choices[0]->message->content;
 
         $this->messages->push([
             'role' => 'assistant',
