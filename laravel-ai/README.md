@@ -6,6 +6,7 @@ Docker (https://docs.docker.com/desktop/)
 
 ### OpenAI
 API Key da OpenAI (https://platform.openai.com/api-keys)
+
 Org Key da OpenAI (https://platform.openai.com/settings/organization/general)
 
 ### Ollama
