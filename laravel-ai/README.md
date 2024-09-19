@@ -11,6 +11,8 @@ Org Key da OpenAI (https://platform.openai.com/settings/organization/general)
 
 ### Ollama
 API instalada localmente (https://ollama.com)
+GPU Boa
+40Gb de espaço em disco
 
 ## Configurando
 
@@ -28,6 +30,12 @@ OPENAI_ORGANIZATION=minhaorgkey
 se for utilizar ollama altere o modelo no .env
 ```sh
 IA_MODEL=llama3
+```
+
+se estiver utilizando ollama suba o serviço de api da IA em um terminal, 
+lembrando que `llama3` pode ser substituido pela versão do modelo que estiver usando 
+```sh
+ollama run llama3
 ```
 
 suba os servidores
