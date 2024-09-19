@@ -4,9 +4,12 @@
 
 Docker (https://docs.docker.com/desktop/)
 
+### OpenAI
 API Key da OpenAI (https://platform.openai.com/api-keys)
-
 Org Key da OpenAI (https://platform.openai.com/settings/organization/general)
+
+### Ollama
+API instalada localmente (https://ollama.com)
 
 ## Configurando
 
@@ -15,10 +18,15 @@ clone o arquivo .env
 cp .env.example .env
 ```
 
-adicione sua api key na variavel OPENAI_API_KEY no arquivo .env
+adicione sua api key na variavel OPENAI_API_KEY no arquivo .env se for utilizar OPenAI
 ```sh
 OPENAI_API_KEY=minhakey
 OPENAI_ORGANIZATION=minhaorgkey
+```
+
+se for utilizar ollama altere o modelo no .env
+```sh
+IA_MODEL=llama3
 ```
 
 suba os servidores
